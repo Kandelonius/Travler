@@ -1,5 +1,6 @@
 package com.shanek.travler.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -31,6 +32,11 @@ public class Client {
     private String state;
 
     private String phonenumber;
+
+    @OneToOne
+    @JoinColumn(name = "reservationid")
+    @JsonIgnoreProperties(value = "client", allowSetters = true)
+    private Reservation reservation;
 
     public Client() {
     }
@@ -126,5 +132,13 @@ public class Client {
 
     public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 }

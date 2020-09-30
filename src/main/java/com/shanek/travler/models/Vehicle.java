@@ -1,5 +1,7 @@
 package com.shanek.travler.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +21,10 @@ public class Vehicle {
     private int miles;
 
     private int year;
+    @OneToOne
+    @JoinColumn(name = "reservationid")
+    @JsonIgnoreProperties(value = "vehicle", allowSetters = true)
+    private Reservation reservation;
 
     public Vehicle() {
     }
@@ -78,5 +84,13 @@ public class Vehicle {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 }
